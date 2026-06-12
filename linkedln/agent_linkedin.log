@@ -1,0 +1,135 @@
+2026-06-12 11:44:18,951 [INFO] Browser opened for LinkedIn auth.
+2026-06-12 11:45:11,231 [INFO] Browser opened for LinkedIn auth.
+2026-06-12 11:56:16,405 [INFO] Browser opened for LinkedIn auth.
+2026-06-12 12:14:40,539 [INFO] Browser opened for LinkedIn auth.
+2026-06-12 12:17:56,946 [INFO] Browser opened for LinkedIn auth.
+2026-06-12 12:26:26,550 [INFO] Browser opened for LinkedIn auth.
+2026-06-12 12:52:44,860 [INFO] Local auth server listening on port 8765.
+2026-06-12 12:52:44,913 [INFO] Browser opened for LinkedIn auth. Waiting for callback...
+2026-06-12 12:57:08,379 [INFO] Local auth server listening on port 8765.
+2026-06-12 12:57:08,423 [INFO] Browser opened for LinkedIn auth. Waiting for callback...
+2026-06-12 12:59:00,082 [INFO] Local auth server listening on port 8765.
+2026-06-12 12:59:01,147 [INFO] Browser opened for LinkedIn auth. Waiting for callback...
+2026-06-12 13:02:59,411 [INFO] Local auth server listening on port 8765.
+2026-06-12 13:03:00,332 [INFO] Browser opened for LinkedIn auth. Waiting for callback...
+2026-06-12 13:14:29,871 [INFO] ViralLinkedInAgent ready. Author URN: urn:li:person:1629293805
+2026-06-12 13:14:29,872 [INFO] Scheduler running. Press Ctrl+C to stop.
+2026-06-12 13:15:51,386 [INFO] ViralLinkedInAgent ready. Author URN: urn:li:person:1629293805
+2026-06-12 13:15:51,387 [INFO] Scheduler running. Press Ctrl+C to stop.
+2026-06-12 13:19:56,851 [INFO] ViralLinkedInAgent ready. Author URN: urn:li:person:1629293805
+2026-06-12 13:20:11,170 [INFO] Fetched 11 items (11 new after dedup).
+2026-06-12 13:20:11,171 [INFO] AFC is enabled with max remote calls: 10.
+2026-06-12 13:20:12,192 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-06-12 13:20:12,195 [ERROR] Post generation failed for 'zapret': 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-06-12 13:20:12,195 [INFO] AFC is enabled with max remote calls: 10.
+2026-06-12 13:20:12,909 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent "HTTP/1.1 404 Not Found"
+2026-06-12 13:20:12,911 [ERROR] Post generation failed for 'CowAgent': 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-06-12 13:20:12,912 [INFO] Queue written: 0 post(s).
+2026-06-12 13:25:31,142 [INFO] ViralLinkedInAgent ready. Author URN: urn:li:person:1629293805
+2026-06-12 13:25:43,866 [INFO] Fetched 11 items (11 new after dedup).
+2026-06-12 13:25:43,867 [INFO] AFC is enabled with max remote calls: 10.
+2026-06-12 13:25:45,193 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-06-12 13:25:45,195 [ERROR] Post generation failed for 'hermes-agent': 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\nPlease retry in 14.875260606s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.0-flash', 'location': 'global'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'model': 'gemini-2.0-flash', 'location': 'global'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '14s'}]}}
+2026-06-12 13:25:45,195 [INFO] AFC is enabled with max remote calls: 10.
+2026-06-12 13:25:45,392 [INFO] HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+2026-06-12 13:25:45,395 [ERROR] Post generation failed for 'OmniVoice-Studio': 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\nPlease retry in 14.657656216s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '14s'}]}}
+2026-06-12 13:25:45,396 [INFO] Queue written: 0 post(s).
+2026-06-12 14:31:55,121 [INFO] ViralLinkedInAgent ready. Author URN: urn:li:person:1629293805
+2026-06-12 14:32:09,162 [INFO] Fetched 11 items (11 new after dedup).
+2026-06-12 14:32:09,162 [ERROR] Post generation failed for 'maltrail': 'ViralLinkedInAgent' object has no attribute 'groq'
+2026-06-12 14:32:09,162 [ERROR] Post generation failed for 'python-bibtexparser': 'ViralLinkedInAgent' object has no attribute 'groq'
+2026-06-12 14:32:09,163 [INFO] Queue written: 0 post(s).
+2026-06-12 14:37:15,449 [INFO] ViralLinkedInAgent ready. Author URN: urn:li:person:1629293805
+2026-06-12 14:37:28,069 [INFO] Fetched 11 items (11 new after dedup).
+2026-06-12 14:37:29,088 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 14:37:29,899 [INFO] Queued (387 chars): This dev just turned their software into a goldmine 🚀
+By lev…
+2026-06-12 14:37:30,713 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 14:37:31,365 [INFO] Queued (545 chars): This repo just open-sourced a game-changing AI SRE toolkit 🚀…
+2026-06-12 14:37:31,366 [INFO] Queue written: 2 post(s).
+2026-06-12 14:37:32,168 [ERROR] LinkedIn API error 422: {"message":"ERROR :: /author :: \"urn:li:person:1629293805\" does not match urn:li:company:\\d+|urn:li:member:-?\\d+\n","status":422}
+2026-06-12 14:37:32,863 [ERROR] LinkedIn API error 422: {"message":"ERROR :: /author :: \"urn:li:person:1629293805\" does not match urn:li:company:\\d+|urn:li:member:-?\\d+\n","status":422}
+2026-06-12 14:41:12,567 [INFO] ViralLinkedInAgent ready. Author URN: urn:li:member:1629293805
+2026-06-12 14:41:22,556 [INFO] Fetched 11 items (11 new after dedup).
+2026-06-12 14:41:23,578 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 14:41:24,402 [INFO] Queued (425 chars): This dev just open-sourced StarVLA 🚀
+A Lego-like codebase fo…
+2026-06-12 14:41:25,113 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 14:41:25,836 [INFO] Queued (349 chars): This startup just revolutionized hardware development 🚀
+Buil…
+2026-06-12 14:41:25,838 [INFO] Queue written: 2 post(s).
+2026-06-12 14:41:26,566 [ERROR] LinkedIn API error 403: {"status":403,"serviceErrorCode":100,"code":"ACCESS_DENIED","message":"Field Value validation failed in REQUEST_BODY: Data Processing Exception while processing fields [/author]"}
+2026-06-12 14:41:27,366 [ERROR] LinkedIn API error 403: {"status":403,"serviceErrorCode":100,"code":"ACCESS_DENIED","message":"Field Value validation failed in REQUEST_BODY: Data Processing Exception while processing fields [/author]"}
+2026-06-12 14:43:42,131 [INFO] Local auth server listening on port 8765.
+2026-06-12 14:43:43,249 [INFO] Waiting for callback on http://localhost:8765/callback ...
+2026-06-12 14:43:50,250 [INFO] Auth callback received. Path: /callback?error=unauthorized_scope_error&error_description=Scope+%26quot%3Br_basicprofile%26quot%3B+is+not+authorized+for+your+application&state=li_auth
+2026-06-12 14:43:50,252 [ERROR] LinkedIn returned error: unauthorized_scope_error — Scope &quot;r_basicprofile&quot; is not authorized for your application
+2026-06-12 14:54:30,868 [INFO] Local auth server listening on port 8765.
+2026-06-12 14:54:30,922 [INFO] Waiting for callback on http://localhost:8765/callback ...
+2026-06-12 14:54:37,382 [INFO] Auth callback received. Path: /callback?error=unauthorized_scope_error&error_description=Scope+%26quot%3Br_basicprofile%26quot%3B+is+not+authorized+for+your+application&state=li_auth
+2026-06-12 14:54:37,383 [ERROR] LinkedIn returned error: unauthorized_scope_error — Scope &quot;r_basicprofile&quot; is not authorized for your application
+2026-06-12 14:54:47,509 [INFO] Local auth server listening on port 8765.
+2026-06-12 14:54:47,558 [INFO] Waiting for callback on http://localhost:8765/callback ...
+2026-06-12 14:54:54,037 [INFO] Auth callback received. Path: /callback?error=unauthorized_scope_error&error_description=Scope+%26quot%3Br_basicprofile%26quot%3B+is+not+authorized+for+your+application&state=li_auth
+2026-06-12 14:54:54,038 [ERROR] LinkedIn returned error: unauthorized_scope_error — Scope &quot;r_basicprofile&quot; is not authorized for your application
+2026-06-12 14:57:05,315 [INFO] Local auth server listening on port 8765.
+2026-06-12 14:57:05,362 [INFO] Waiting for callback on http://localhost:8765/callback ...
+2026-06-12 14:57:19,425 [INFO] Auth callback received. Path: /callback?code=AQQS9GsMG3xCCz4JfAsh4NS9UhifEQUZLXPqOLFdEE_ARLR0KIw3_qKhb13QAe2Gr-8e-QAzy3Swgi4tMwanm8wW6wa6yL6WwlVl9Sy1RJNA6kBhM37eiSus8CCM3BzzeWCWDqVWCYtAAm2wOoio5N6bYCQ6NcfaQsKgCoAq92Pq8u3uQ3dycskSET22peCwAOMI5zd1gJzloZt7xdE&state=li_auth
+2026-06-12 14:59:42,995 [INFO] Local auth server listening on port 8765.
+2026-06-12 14:59:43,042 [INFO] Waiting for callback on http://localhost:8765/callback ...
+2026-06-12 14:59:44,307 [INFO] Auth callback received. Path: /callback?code=AQRL6l8xihhIxWid0PgzfbBms_VfZhsa37PynWSN1tMNPwJVe1yYIiCAv5dpQdWGmufFEe1m7ZkLaM_1BZP6Q271fHrqnq9Et7q9TzJgBmYQUGrsxxLdAn2ju56yHHkRpd5mApb6IYTHVrVAAZCg3Qlcp85tknbFc_r_xM7l4N_YNrad3Ha7YDg4C4aM--wToLQ-dgPKn6mMhTICEjc&state=li_auth
+2026-06-12 15:01:06,448 [INFO] Local auth server listening on port 8765.
+2026-06-12 15:01:06,492 [INFO] Waiting for callback on http://localhost:8765/callback ...
+2026-06-12 15:01:07,692 [INFO] Auth callback received. Path: /callback?code=AQRHwKOxyjwqzoFLfWbCHBJk0m4vDato5U3es4gwwQLzw2JMaGBhaleKxpIcmXbZMO227wtn0DojmkWLShNZvhFUT2IzST9LfYbTJiqOKGNtBm957RpbUV9Tk-HczvvX2r4qYVUgC87Rnri2uSkroif5jUCNT0mlG-QaIqTXO7JUwHDDLRIAZ3y7qJuCsYVWL9C9QSzUXGGpR0ejQsg&state=li_auth
+2026-06-12 15:02:36,083 [INFO] ViralLinkedInAgent ready. Author URN: urn:li:member:1629293805
+2026-06-12 15:02:51,495 [INFO] Fetched 11 items (11 new after dedup).
+2026-06-12 15:02:52,616 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 15:02:58,956 [INFO] Queued (482 chars): This AI pioneer just dropped N.E.K.O 🚀
+N.E.K.O is an AI comp…
+2026-06-12 15:03:00,833 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 15:03:01,837 [INFO] Queued (486 chars): Stop building AI agents from scratch 💡
+This new framework le…
+2026-06-12 15:03:01,839 [INFO] Queue written: 2 post(s).
+2026-06-12 15:03:02,659 [ERROR] LinkedIn API error 403: {"status":403,"serviceErrorCode":100,"code":"ACCESS_DENIED","message":"Field Value validation failed in REQUEST_BODY: Data Processing Exception while processing fields [/author]"}
+2026-06-12 15:03:03,592 [ERROR] LinkedIn API error 403: {"status":403,"serviceErrorCode":100,"code":"ACCESS_DENIED","message":"Field Value validation failed in REQUEST_BODY: Data Processing Exception while processing fields [/author]"}
+2026-06-12 15:08:55,360 [INFO] ViralLinkedInAgent ready. Author URN: urn:li:member:1629293805
+2026-06-12 15:09:08,813 [INFO] Fetched 11 items (11 new after dedup).
+2026-06-12 15:09:09,940 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 15:09:10,772 [INFO] Queued (559 chars): This SciPy library just dropped a game-changer 🔥
+It's the ul…
+2026-06-12 15:09:11,441 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 15:09:12,171 [INFO] Queued (464 chars): This server-tools repo just dropped a game-changer for Odoo …
+2026-06-12 15:09:12,171 [INFO] Queue written: 2 post(s).
+2026-06-12 15:09:12,909 [ERROR] LinkedIn API error 403: {"status":403,"serviceErrorCode":100,"code":"ACCESS_DENIED","message":"Field Value validation failed in REQUEST_BODY: Data Processing Exception while processing fields [/author]"}
+2026-06-12 15:09:13,524 [ERROR] LinkedIn API error 403: {"status":403,"serviceErrorCode":100,"code":"ACCESS_DENIED","message":"Field Value validation failed in REQUEST_BODY: Data Processing Exception while processing fields [/author]"}
+2026-06-12 15:12:58,424 [INFO] ViralLinkedInAgent ready. Author URN: urn:li:person:1629293805
+2026-06-12 15:13:19,382 [INFO] Fetched 11 items (11 new after dedup).
+2026-06-12 15:13:20,388 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 15:13:21,070 [INFO] Queued (513 chars): Stop relying on workarounds for blocked Discord and YouTube …
+2026-06-12 15:13:21,839 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 15:13:22,557 [INFO] Queued (551 chars): This open source platform just revolutionized AI engineering…
+2026-06-12 15:13:22,558 [INFO] Queue written: 2 post(s).
+2026-06-12 15:13:23,271 [ERROR] LinkedIn API error 400: {"errorDetailType":"com.linkedin.common.error.BadRequest","code":"UNPROCESSABLE_ENTITY","message":"author value urn:li:person:1629293805 is of type person. Allowed URN types are company, member, organizationalPage","errorDetails":{"inputErrors":[{"description":"author value urn:li:person:1629293805 
+2026-06-12 15:13:24,090 [ERROR] LinkedIn API error 400: {"errorDetailType":"com.linkedin.common.error.BadRequest","code":"UNPROCESSABLE_ENTITY","message":"author value urn:li:person:1629293805 is of type person. Allowed URN types are company, member, organizationalPage","errorDetails":{"inputErrors":[{"description":"author value urn:li:person:1629293805 
+2026-06-12 15:23:02,943 [INFO] Local auth server listening on port 8765.
+2026-06-12 15:23:02,991 [INFO] Waiting for callback on http://localhost:8765/callback ...
+2026-06-12 15:23:14,456 [INFO] Auth callback received. Path: /callback?code=AQRs-A6ychC4YyOBhhe2N_5Mr-YmDudeRLh9n5GY5sBtPdUz74fo2iIsfoClxGFbT9BwEvdhS6bJU2kKEOtNZkCm4x7_MF6MX8Ilqy1Okj68pfS-uRyNQY_lYrkzamJ2c0YH1t81GjSsI4hNkoHRzjg0HEBBMmSjsud1BROMqcQfCFYRkJp-5WiGMYtdNIJTIYFioduUCgMUpANaxyg&state=li_auth
+2026-06-12 15:27:18,595 [INFO] ViralLinkedInAgent ready. Author URN: urn:li:person:urm:li:member:Zb9EXzHhi0
+2026-06-12 15:27:34,927 [INFO] Fetched 11 items (11 new after dedup).
+2026-06-12 15:27:36,053 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 15:27:43,130 [INFO] Queued (491 chars): This dev just dropped a game-changing spec-driven developmen…
+2026-06-12 15:27:44,244 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 15:27:45,373 [INFO] Queued (531 chars): This researcher just mapped machine learning to category the…
+2026-06-12 15:27:45,374 [INFO] Queue written: 2 post(s).
+2026-06-12 15:27:47,134 [ERROR] LinkedIn API error 400: {"errorDetailType":"com.linkedin.common.error.BadRequest","code":"UNPROCESSABLE_ENTITY","message":"author value urn:li:person:urm:li:member:Zb9EXzHhi0 is of type person. Allowed URN types are company, member, organizationalPage","errorDetails":{"inputErrors":[{"description":"author value urn:li:pers
+2026-06-12 15:27:48,549 [ERROR] LinkedIn API error 400: {"errorDetailType":"com.linkedin.common.error.BadRequest","code":"UNPROCESSABLE_ENTITY","message":"author value urn:li:person:urm:li:member:Zb9EXzHhi0 is of type person. Allowed URN types are company, member, organizationalPage","errorDetails":{"inputErrors":[{"description":"author value urn:li:pers
+2026-06-12 15:31:44,649 [INFO] ViralLinkedInAgent ready. Author URN: urn:li:person:Zb9EXzHhi0
+2026-06-12 15:31:59,315 [INFO] Fetched 11 items (11 new after dedup).
+2026-06-12 15:32:00,231 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 15:32:01,066 [INFO] Queued (564 chars): This directory just dropped the ultimate collection of high-…
+2026-06-12 15:32:01,778 [INFO] HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-12 15:32:02,463 [INFO] Queued (356 chars): This repo just dropped free LLM API keys 🚀
+Get instant acces…
+2026-06-12 15:32:02,464 [INFO] Queue written: 2 post(s).
+2026-06-12 15:32:03,625 [INFO] Posted to LinkedIn. ID: urn:li:share:7471177497548808192
+2026-06-12 15:32:09,460 [INFO] Posted to LinkedIn. ID: urn:li:share:7471177522437812224
