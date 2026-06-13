@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: linkedIn   # ← tells every step to run inside this folder
+        working-directory: linkedln
 
     steps:
       - uses: actions/checkout@v5
