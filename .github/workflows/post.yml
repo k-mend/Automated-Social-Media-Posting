@@ -2,16 +2,20 @@ name: LinkedIn Daily Post
 
 on:
   schedule:
-    - cron: '0 9 * * *'   # 09:00 UTC daily
-  workflow_dispatch:        # lets you trigger manually from GitHub UI
+    - cron: '0 9 * * *'
+  workflow_dispatch:
 
 jobs:
   post:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+    defaults:
+      run:
+        working-directory: linkedIn   # ← tells every step to run inside this folder
 
-      - uses: actions/setup-python@v5
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
@@ -20,9 +24,9 @@ jobs:
 
       - name: Run agent
         env:
-          GROQ_API_KEY:               ${{ secrets.GROQ_API_KEY }}
-          LI_ACCESS_TOKEN:            ${{ secrets.LI_ACCESS_TOKEN }}
-          LI_AUTHOR_URN:              ${{ secrets.LI_AUTHOR_URN }}
-          UPSTASH_REDIS_REST_URL:     ${{ secrets.UPSTASH_REDIS_REST_URL }}
-          UPSTASH_REDIS_REST_TOKEN:   ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
+          GROQ_API_KEY:                ${{ secrets.GROQ_API_KEY }}
+          LI_ACCESS_TOKEN:             ${{ secrets.LI_ACCESS_TOKEN }}
+          LI_AUTHOR_URN:               ${{ secrets.LI_AUTHOR_URN }}
+          UPSTASH_REDIS_REST_URL:      ${{ secrets.UPSTASH_REDIS_REST_URL }}
+          UPSTASH_REDIS_REST_TOKEN:    ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
         run: python linkedln.py --run-once
