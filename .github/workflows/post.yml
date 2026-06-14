@@ -2,8 +2,10 @@ name: LinkedIn Daily Post
 
 on:
   schedule:
-    - cron: '0 9 * * *'
-  workflow_dispatch:
+    # 6:14 AM UTC converts directly to 9:14 AM Kenyan Time (EAT)
+    # This avoids the top-of-the-hour bottleneck so your script triggers reliably!
+    - cron: '14 6 * * *'
+  workflow_dispatch: # Keeps your manual run button enabled
 
 jobs:
   post:
@@ -24,12 +26,15 @@ jobs:
 
       - name: Run agent
         env:
-          GROQ_API_KEY:                ${{ secrets.GROQ_API_KEY }}
-          LI_ACCESS_TOKEN:             ${{ secrets.LI_ACCESS_TOKEN }}
-          LI_AUTHOR_URN:               ${{ secrets.LI_AUTHOR_URN }}
+          GROQ_API_KEY:             ${{ secrets.GROQ_API_KEY }}
+          LI_ACCESS_TOKEN:          ${{ secrets.LI_ACCESS_TOKEN }}
+          LI_AUTHOR_URN:            ${{ secrets.LI_AUTHOR_URN }}
           UPSTASH_REDIS_REST_URL:      ${{ secrets.UPSTASH_REDIS_REST_URL }}
           UPSTASH_REDIS_REST_TOKEN:    ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
         run: python linkedln.py --run-once
 
       - name: Keep repo active
-        run: git commit --allow-empty -m "chore: keep alive" && git push || true
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "chore: keep alive" && git push || true
