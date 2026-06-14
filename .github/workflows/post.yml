@@ -30,3 +30,6 @@ jobs:
           UPSTASH_REDIS_REST_URL:      ${{ secrets.UPSTASH_REDIS_REST_URL }}
           UPSTASH_REDIS_REST_TOKEN:    ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
         run: python linkedln.py --run-once
+
+      - name: Keep repo active
+        run: git commit --allow-empty -m "chore: keep alive" && git push || true
