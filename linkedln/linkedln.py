@@ -380,12 +380,19 @@ OUTPUT ONLY THE POST TEXT. No commentary, no quotes, no markdown fences."""
     def curate_post(self, item: dict) -> str | None:
         try:
             resp = self.groq.chat.completions.create(
-                model="qwen/qwen3.6-27b", # Updated model ID
+                model="qwen/qwen3.6-27b",
                 messages=[{"role": "user", "content": self._build_prompt(item)}],
-                max_tokens=500,
+                max_tokens=1500, # Increased to accommodate the thinking process
             )
+            
+            raw_content = resp.choices[0].message.content.strip()
+            
+            # Strip out the reasoning block if present
+            if "</think>" in raw_content:
+                raw_content = raw_content.split("</think>")[-1].strip()
+
             body = "\n".join(
-                line for line in resp.choices[0].message.content.strip().splitlines()
+                line for line in raw_content.splitlines()
                 if not line.strip().startswith("http")
             ).strip()
 
@@ -403,7 +410,7 @@ OUTPUT ONLY THE POST TEXT. No commentary, no quotes, no markdown fences."""
 
         except Exception as e:
             log.error("Post generation failed for '%s': %s", item["title"], e)
-            raise RuntimeError(f"Groq API generation failed: {e}") # Enforce crash
+            raise RuntimeError(f"Groq API generation failed: {e}")
     # ── LinkedIn API posting ───────────────────────────────────────────────────
     def _li_post(self, text: str) -> bool:
         payload = {
