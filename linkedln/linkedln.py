@@ -382,7 +382,7 @@ OUTPUT ONLY THE POST TEXT. No commentary, no quotes, no markdown fences."""
             resp = self.groq.chat.completions.create(
                 model="openai/gpt-oss-120b",
                 messages=[{"role": "user", "content": self._build_prompt(item)}],
-                max_tokens=500, # Increased to accommodate the thinking process
+                max_tokens=1500, # Increased to accommodate the thinking process
             )
             
             raw_content = resp.choices[0].message.content.strip()
