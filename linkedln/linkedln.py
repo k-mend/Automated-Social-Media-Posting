@@ -41,6 +41,7 @@ import schedule
 import webbrowser
 import http.server
 import urllib.parse
+import re
 from pathlib import Path
 from dotenv import load_dotenv
 from groq import Groq
@@ -377,61 +378,92 @@ LINKEDIN-SPECIFIC RULES:
 
 OUTPUT ONLY THE POST TEXT. No commentary, no quotes, no markdown fences."""
 
-    import re
+    def curate_post(self, item: dict) -> str | None:
+        try:
+            resp = self.groq.chat.completions.create(
+                model="openai/gpt-oss-120b",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": (
+                            "You are a professional social media manager. "
+                            "Output ONLY the final raw LinkedIn post, nothing else. "
+                            "Do NOT use thinking blocks, reasoning steps, preambles, introductions, markdown fences, or any meta-commentary. "
+                            "The first character of your output must be the first character of the LinkedIn post."
+                        ),
+                    },
+                    {"role": "user", "content": self._build_prompt(item)},
+                ],
+                max_tokens=1500,
+                temperature=0.6,
+            )
 
-def curate_post(self, item: dict) -> str | None:
-    try:
-        resp = self.groq.chat.completions.create(
-            model="openai/gpt-oss-120b",
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "You are a professional social media manager. Output ONLY the final raw LinkedIn post. "
-                        "Do NOT include thinking processes, reasoning steps, preambles, introductions, or markdown code fences."
-                    ),
-                },
-                {"role": "user", "content": self._build_prompt(item)},
-            ],
-            max_tokens=1500,
-            temperature=0.6,
-        )
+            raw_content = resp.choices[0].message.content.strip()
 
-        raw_content = resp.choices[0].message.content.strip()
+            # 1. Strip ALL XML-style thinking/reasoning tags (handles <think>, </think>, variations)
+            raw_content = re.sub(r"</?(?:think|thought|reasoning|analysis)[^>]*>", "", raw_content, flags=re.IGNORECASE).strip()
 
-        # 1. Strip XML reasoning tags (<think>...</think>, <thought>...</thought>)
-        raw_content = re.sub(r"<(think|thought)>.*?</\1>", "", raw_content, flags=re.DOTALL).strip()
+            # 2. Split on "Thinking Process:", "Here's a thinking process:", etc. and take ONLY the post
+            thinking_markers = [
+                "Thinking Process:",
+                "thinking process:",
+                "Here's a thinking process:",
+                "here's a thinking process:",
+                "Let me think about this:",
+                "Reasoning:",
+                "Analysis:",
+            ]
+            for marker in thinking_markers:
+                if marker in raw_content:
+                    # Take everything BEFORE the marker (the actual post)
+                    raw_content = raw_content.split(marker)[0].strip()
+                    break
 
-        # 2. Strip plain-text reasoning blocks (e.g. "Thinking Process: ...")
-        if "Thinking Process:" in raw_content:
-            raw_content = raw_content.split("Thinking Process:")[-1]
-            # Keep everything after the last double newline (where actual post starts)
-            parts = [p.strip() for p in raw_content.split("\n\n") if p.strip()]
-            raw_content = "\n\n".join(parts[1:]) if len(parts) > 1 else raw_content
+            # 3. Remove conversational intros ("Here is your post:", "Sure, here's...", etc.)
+            raw_content = re.sub(
+                r"^(Here is|Here's|Sure|Certainly|Alright|Okay|OK|Let me write|I'll write|Here's your).*?:\s*",
+                "",
+                raw_content,
+                flags=re.IGNORECASE
+            ).strip()
 
-        # 3. Strip conversational intro lines ("Here is your post:", "Sure, here's...", etc.)
-        raw_content = re.sub(r"^(Here is|Here's|Sure|Certainly).*?:\s*", "", raw_content, flags=re.IGNORECASE).strip()
+            # 4. Remove any remaining lines that look like reasoning (start with numbers/bullets in thinking context)
+            lines = []
+            for line in raw_content.splitlines():
+                stripped = line.strip()
+                # Skip lines that are clearly reasoning blocks
+                if stripped and not (
+                    stripped[0].isdigit() and "." in stripped[:3] and any(
+                        keyword in line.lower() for keyword in ["deconstruct", "analyze", "key insight", "pattern"]
+                    )
+                ):
+                    lines.append(line)
+            
+            raw_content = "\n".join(lines).strip()
 
-        body = "\n".join(
-            line for line in raw_content.splitlines()
-            if not line.strip().startswith("http")
-        ).strip()
+            # 5. Remove URLs from the body (will be added separately)
+            body = "\n".join(
+                line for line in raw_content.splitlines()
+                if not line.strip().startswith("http")
+            ).strip()
 
-        if len(body) > BODY_CHAR_LIMIT:
-            body = body[:BODY_CHAR_LIMIT].rsplit("\n", 1)[0] + "…"
+            # 6. Enforce character limits
+            if len(body) > BODY_CHAR_LIMIT:
+                body = body[:BODY_CHAR_LIMIT].rsplit("\n", 1)[0] + "…"
 
-        short = self.shorten_link(item["url"])
-        full  = f"{body}\n\n{short}"
+            short = self.shorten_link(item["url"])
+            full  = f"{body}\n\n{short}"
 
-        if len(full) > LI_POST_CHAR_LIMIT:
-            allowed = LI_POST_CHAR_LIMIT - len(short) - 4
-            full    = body[:allowed].rstrip() + f"…\n\n{short}"
+            if len(full) > LI_POST_CHAR_LIMIT:
+                allowed = LI_POST_CHAR_LIMIT - len(short) - 4
+                full    = body[:allowed].rstrip() + f"…\n\n{short}"
 
-        return full
+            return full
 
-    except Exception as e:
-        log.error("Post generation failed for '%s': %s", item["title"], e)
-        raise RuntimeError(f"Groq API generation failed: {e}")
+        except Exception as e:
+            log.error("Post generation failed for '%s': %s", item["title"], e)
+            raise RuntimeError(f"Groq API generation failed: {e}")
+
     # ── LinkedIn API posting ───────────────────────────────────────────────────
     def _li_post(self, text: str) -> bool:
         payload = {
