@@ -377,40 +377,61 @@ LINKEDIN-SPECIFIC RULES:
 
 OUTPUT ONLY THE POST TEXT. No commentary, no quotes, no markdown fences."""
 
-    def curate_post(self, item: dict) -> str | None:
-        try:
-            resp = self.groq.chat.completions.create(
-                model="openai/gpt-oss-120b",
-                messages=[{"role": "user", "content": self._build_prompt(item)}],
-                max_tokens=1500, # Increased to accommodate the thinking process
-            )
-            
-            raw_content = resp.choices[0].message.content.strip()
-            
-            # Strip out the reasoning block if present
-            if "</think>" in raw_content:
-                raw_content = raw_content.split("</think>")[-1].strip()
+    import re
 
-            body = "\n".join(
-                line for line in raw_content.splitlines()
-                if not line.strip().startswith("http")
-            ).strip()
+def curate_post(self, item: dict) -> str | None:
+    try:
+        resp = self.groq.chat.completions.create(
+            model="openai/gpt-oss-120b",
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a professional social media manager. Output ONLY the final raw LinkedIn post. "
+                        "Do NOT include thinking processes, reasoning steps, preambles, introductions, or markdown code fences."
+                    ),
+                },
+                {"role": "user", "content": self._build_prompt(item)},
+            ],
+            max_tokens=1500,
+            temperature=0.6,
+        )
 
-            if len(body) > BODY_CHAR_LIMIT:
-                body = body[:BODY_CHAR_LIMIT].rsplit("\n", 1)[0] + "…"
+        raw_content = resp.choices[0].message.content.strip()
 
-            short = self.shorten_link(item["url"])
-            full  = f"{body}\n\n{short}"
+        # 1. Strip XML reasoning tags (<think>...</think>, <thought>...</thought>)
+        raw_content = re.sub(r"<(think|thought)>.*?</\1>", "", raw_content, flags=re.DOTALL).strip()
 
-            if len(full) > LI_POST_CHAR_LIMIT:
-                allowed = LI_POST_CHAR_LIMIT - len(short) - 4
-                full    = body[:allowed].rstrip() + f"…\n\n{short}"
+        # 2. Strip plain-text reasoning blocks (e.g. "Thinking Process: ...")
+        if "Thinking Process:" in raw_content:
+            raw_content = raw_content.split("Thinking Process:")[-1]
+            # Keep everything after the last double newline (where actual post starts)
+            parts = [p.strip() for p in raw_content.split("\n\n") if p.strip()]
+            raw_content = "\n\n".join(parts[1:]) if len(parts) > 1 else raw_content
 
-            return full
+        # 3. Strip conversational intro lines ("Here is your post:", "Sure, here's...", etc.)
+        raw_content = re.sub(r"^(Here is|Here's|Sure|Certainly).*?:\s*", "", raw_content, flags=re.IGNORECASE).strip()
 
-        except Exception as e:
-            log.error("Post generation failed for '%s': %s", item["title"], e)
-            raise RuntimeError(f"Groq API generation failed: {e}")
+        body = "\n".join(
+            line for line in raw_content.splitlines()
+            if not line.strip().startswith("http")
+        ).strip()
+
+        if len(body) > BODY_CHAR_LIMIT:
+            body = body[:BODY_CHAR_LIMIT].rsplit("\n", 1)[0] + "…"
+
+        short = self.shorten_link(item["url"])
+        full  = f"{body}\n\n{short}"
+
+        if len(full) > LI_POST_CHAR_LIMIT:
+            allowed = LI_POST_CHAR_LIMIT - len(short) - 4
+            full    = body[:allowed].rstrip() + f"…\n\n{short}"
+
+        return full
+
+    except Exception as e:
+        log.error("Post generation failed for '%s': %s", item["title"], e)
+        raise RuntimeError(f"Groq API generation failed: {e}")
     # ── LinkedIn API posting ───────────────────────────────────────────────────
     def _li_post(self, text: str) -> bool:
         payload = {
@@ -447,6 +468,7 @@ OUTPUT ONLY THE POST TEXT. No commentary, no quotes, no markdown fences."""
         except Exception as e:
             log.error("LinkedIn request failed: %s", e)
             raise RuntimeError(f"LinkedIn request failed: {e}")
+            
     # ── Core pipeline (used by both --run-once and scheduler) ─────────────────
     def run_pipeline(self):
         log.info("Pipeline starting.")
