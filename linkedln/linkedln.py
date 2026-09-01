@@ -380,9 +380,9 @@ OUTPUT ONLY THE POST TEXT. No commentary, no quotes, no markdown fences."""
     def curate_post(self, item: dict) -> str | None:
         try:
             resp = self.groq.chat.completions.create(
-                model="qwen/qwen3.6-27b",
+                model="openai/gpt-oss-120b",
                 messages=[{"role": "user", "content": self._build_prompt(item)}],
-                max_tokens=1500, # Increased to accommodate the thinking process
+                max_tokens=500, # Increased to accommodate the thinking process
             )
             
             raw_content = resp.choices[0].message.content.strip()
