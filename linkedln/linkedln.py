@@ -380,7 +380,7 @@ OUTPUT ONLY THE POST TEXT. No commentary, no quotes, no markdown fences."""
     def curate_post(self, item: dict) -> str | None:
         try:
             resp = self.groq.chat.completions.create(
-                model="llama-3.1-70b-versatile", # Updated model ID
+                model="qwen/qwen3.6-27b", # Updated model ID
                 messages=[{"role": "user", "content": self._build_prompt(item)}],
                 max_tokens=500,
             )
