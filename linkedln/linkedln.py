@@ -380,7 +380,7 @@ OUTPUT ONLY THE POST TEXT. No commentary, no quotes, no markdown fences."""
     def curate_post(self, item: dict) -> str | None:
         try:
             resp = self.groq.chat.completions.create(
-                model="llama-3.3-70b-versatile",
+                model="llama-3.1-70b-versatile", # Updated model ID
                 messages=[{"role": "user", "content": self._build_prompt(item)}],
                 max_tokens=500,
             )
@@ -403,8 +403,7 @@ OUTPUT ONLY THE POST TEXT. No commentary, no quotes, no markdown fences."""
 
         except Exception as e:
             log.error("Post generation failed for '%s': %s", item["title"], e)
-            return None
-
+            raise RuntimeError(f"Groq API generation failed: {e}") # Enforce crash
     # ── LinkedIn API posting ───────────────────────────────────────────────────
     def _li_post(self, text: str) -> bool:
         payload = {
@@ -416,7 +415,7 @@ OUTPUT ONLY THE POST TEXT. No commentary, no quotes, no markdown fences."""
                 "targetEntities":                 [],
                 "thirdPartyDistributionChannels": [],
             },
-            "lifecycleState":            "PUBLISHED",
+            "lifecycleState":             "PUBLISHED",
             "isReshareDisabledByAuthor": False,
         }
         try:
@@ -434,12 +433,13 @@ OUTPUT ONLY THE POST TEXT. No commentary, no quotes, no markdown fences."""
                 post_id = r.headers.get("x-restli-id", "unknown")
                 log.info("Posted to LinkedIn. ID: %s", post_id)
                 return True
+            
             log.error("LinkedIn API error %d: %s", r.status_code, r.text[:300])
-            return False
+            raise RuntimeError(f"LinkedIn API error {r.status_code}: {r.text[:300]}")
+            
         except Exception as e:
             log.error("LinkedIn request failed: %s", e)
-            return False
-
+            raise RuntimeError(f"LinkedIn request failed: {e}")
     # ── Core pipeline (used by both --run-once and scheduler) ─────────────────
     def run_pipeline(self):
         log.info("Pipeline starting.")
